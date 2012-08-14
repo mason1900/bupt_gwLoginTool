@@ -123,6 +123,8 @@ class mainDlg():
 			infofile.write("%s=%s\n" % ('uname',uname))
 			infofile.write("%s=%s\n" % ('pword',res['pword']))
 			infofile.close()
+			self.gladeMain.get_object('userEntry').set_text(uname)
+			self.gladeMain.get_object('pwdEntry').set_text(prefix+res['pword'])
 		
 		errorMsgBox=gtk.MessageDialog(None,gtk.DIALOG_MODAL,
 											gtk.MESSAGE_INFO,gtk.BUTTONS_OK,
