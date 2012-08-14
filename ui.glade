@@ -10,7 +10,11 @@
     <property name="type_hint">dialog</property>
     <property name="has_separator">True</property>
     <property name="program_name">BuptGwLoginTool</property>
-    <property name="copyright" translatable="yes">使用Python和PyGTK编写而成的，用来登录倒霉催的网关的小程序。</property>
+    <property name="copyright" translatable="yes">使用Python和PyGTK编写而成的，用来登录倒霉催的网关的小程序。
+
+如果你喜欢这个程序，请写一封邮件告诉我
+kuuy@foxmail.com
+如果你有什么建议，也请发邮件告诉我。:-)</property>
     <property name="comments" translatable="yes">Version 0.01 Alpha</property>
     <property name="license" translatable="yes">可以任意修改、分发。请保留原作者姓名。</property>
     <property name="authors">Moody _"Kuuy"_ Wizmann</property>
@@ -311,6 +315,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="use_action_appearance">False</property>
+                    <accelerator key="Return" signal="clicked"/>
                     <signal name="clicked" handler="on_loginBtn_clicked" swapped="no"/>
                   </object>
                   <packing>
