@@ -8,14 +8,16 @@ def MrMsgConvert(idic):
 		xip=idic['xip']
 		print msg,msga,xip
 		if(msg==1):
-			if(msga=='error0'):
-				return "本IP不允许Web方式登录\n"
-			elif(msga=='error1'):
-				return "本账号不允许Web方式登录\n"
-			elif(msga=='error2'):
-				return "本账号不允许修改密码\n"
-			else:
-				return msga
+			if(msga!=''):
+				if(msga=='error0'):
+					return "本IP不允许Web方式登录\n"
+				elif(msga=='error1'):
+					return "本账号不允许Web方式登录\n"
+				elif(msga=='error2'):
+					return "本账号不允许修改密码\n"
+				else:
+					return msga
+			return "用户名或密码错误"
 		elif(msg==2):
 			return "该账号正在IP为："+xip+"的机器上使用，请点击<a href='gw.bupt.edu.cn/a11.htm'>继续</a>强制登录。\n"
 		elif(msg==3):

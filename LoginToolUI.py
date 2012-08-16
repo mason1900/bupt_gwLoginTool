@@ -48,6 +48,7 @@ class HTTPCnc():
 		self.conn.close()
 		
 	def MD5_encode(self,pword):
+		self.md5=md5()
 		pword="1"+pword+"12345678"
 		self.md5.update(pword)
 		return self.md5.hexdigest()+"123456781"
@@ -57,23 +58,23 @@ class HTTPCnc():
 			md5password=self.MD5_encode(pword)
 		else:
 			md5password=pword.lstrip(prefix)
-		#try:
-		self.connect()
-		sendItem="DDDDD="+uname+"&upass="+md5password+"&R1=0&R2=1&para=00&0MKKey=123456"
-		print(sendItem)
-		self.conn.request("POST", "", sendItem, HTTPheader)
-		response = self.conn.getresponse()	
-		data = response.read()
-		title=parseHTMLTitle(data)
-		self.disconnect()
-		if(title==u'登录成功窗'):
-			return {'status':True,'info':u'成功登录！别忘了注销哦～\n','pword':md5password}
-		else:
-			info=parseMsg(data)
-			info=u'提示信息: '+MrMsgConvert(info)
-			return {'status':False,'info':info,'pword':md5password}
-		#except:
-			#return {'status':False,'info':u'登录失败，请检查网络连接','pword':md5password}
+		try:
+			self.connect()
+			sendItem="DDDDD="+uname+"&upass="+md5password+"&R1=0&R2=1&para=00&0MKKey=123456"
+			print(sendItem)
+			self.conn.request("POST", "", sendItem, HTTPheader)
+			response = self.conn.getresponse()	
+			data = response.read()
+			title=parseHTMLTitle(data)
+			self.disconnect()
+			if(title==u'登录成功窗'):
+				return {'status':True,'info':u'成功登录！别忘了注销哦～\n','pword':md5password}
+			else:
+				info=parseMsg(data)
+				info=u'提示信息: '+MrMsgConvert(info)
+				return {'status':False,'info':info,'pword':md5password}
+		except:
+			return {'status':False,'info':u'登录失败，请检查网络连接','pword':md5password}
 	
 	def logout(self):
 		try:
