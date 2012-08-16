@@ -7,6 +7,9 @@ import gobject
 import gtk,pygtk 
 import sys,os
 import webkit
+from getInfo import parseHTMLTitle
+from getInfo import parseMsg
+from msgConvert import MrMsgConvert
 
 try:
     from hashlib import md5
@@ -54,17 +57,23 @@ class HTTPCnc():
 			md5password=self.MD5_encode(pword)
 		else:
 			md5password=pword.lstrip(prefix)
-		try:
-			self.connect()
-			sendItem="DDDDD="+uname+"&upass="+md5password+"&R1=0&R2=1&para=00&0MKKey=123456"
-			print(sendItem)
-			self.conn.request("POST", "", sendItem, HTTPheader)
-			response = self.conn.getresponse()	
-			data = response.read()
-			self.disconnect()
-			return {'status':True,'info':u'登录成功\n\n如果仍不能上网，请检查您的用户名密码是否正确。','pword':md5password}
-		except:
-			return {'status':False,'info':u'登录失败，请检查网络连接','pword':md5password}
+		#try:
+		self.connect()
+		sendItem="DDDDD="+uname+"&upass="+md5password+"&R1=0&R2=1&para=00&0MKKey=123456"
+		print(sendItem)
+		self.conn.request("POST", "", sendItem, HTTPheader)
+		response = self.conn.getresponse()	
+		data = response.read()
+		title=parseHTMLTitle(data)
+		self.disconnect()
+		if(title==u'登录成功窗'):
+			return {'status':True,'info':u'成功登录！别忘了注销哦～\n','pword':md5password}
+		else:
+			info=parseMsg(data)
+			info=u'提示信息: '+MrMsgConvert(info)
+			return {'status':False,'info':info,'pword':md5password}
+		#except:
+			#return {'status':False,'info':u'登录失败，请检查网络连接','pword':md5password}
 	
 	def logout(self):
 		try:
