@@ -1,4 +1,4 @@
-##BUPT_gwLoginTool
+## BUPT_gwLoginTool
 北邮小破网关登录工具
 
 **Warning: This is an unstable version, but it works well on my computer.**    
